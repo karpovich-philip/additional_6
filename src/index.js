@@ -1,12 +1,12 @@
 module.exports = function zeros(expression) {
-  var strToArr = expression.split('*');
-  var arrOfFact = [];
-  var amOfNulls = 0;
+  let strToArr = expression.split('*');
+  let arrOfFact = [];
+  let amOfNulls = 0;
 
-  for (var x = 0; x < strToArr.length; x++) {
-    var n = parseInt(strToArr[x]);
-    var regEx = /\d!{2}/;
-    var count = n;
+  for (let x = 0; x < strToArr.length; x++) {
+    let n = parseInt(strToArr[x]);
+    let regEx = /\d!{2}/;
+    let count = n;
 
     if (regEx.test(strToArr[x])) {
       if (n % 2 !== 1) {
@@ -33,39 +33,35 @@ module.exports = function zeros(expression) {
     arrOfFact.push(n);
   }
 
-  var mulArray = arrOfFact.reduce(function multiply(a, b) {
-    var first = a.toString();
-    var second = b.toString();
-    var result = [];
+  let mulArray = arrOfFact.reduce(function multiply(a, b) {
+    let first = a.toString();
+    let second = b.toString();
+    let result = [];
 
-    for (var i = 0; i < first.length; i++) {
-      for (var j = 0; j < second.length; j++) {
-        var lenF = first.length;
-        var lenS = second.length;
-        var prevEl = (lenF - i) + (lenS - j);
-        var lastEl = prevEl + 1;
-        var mul = first[(lenF - 1) - i] * second[(lenS - 1) - j];
-        var sum = mul + (result[lastEl] || 0);
+    for (let i = 0; i < first.length; i++) {
+      for (let j = 0; j < second.length; j++) {
+        let lenF = first.length;
+        let lenS = second.length;
+        let prevEl = (lenF - i) + (lenS - j);
+        let lastEl = prevEl + 1;
+        let mul = first[(lenF - 1) - i] * second[(lenS - 1) - j];
+        let sum = mul + (result[lastEl] || 0);
 
         result[prevEl] = (result[prevEl] || 0) + Math.floor(sum / 10); //
         result[lastEl] = sum % 10;
       }
     }
-
     result = result.slice(2);
-
     if (result[0] === 0) {
       result = result.slice(1);
     }
-
     return result.join('');
   });
 
-  for (var y = 1; y < mulArray.length; y++) {
+  for (let y = 1; y < mulArray.length; y++) {
     if (mulArray[mulArray.length - y] === '0') {
       amOfNulls += 1;
     } else break;
   }
-
   return amOfNulls;
 }
